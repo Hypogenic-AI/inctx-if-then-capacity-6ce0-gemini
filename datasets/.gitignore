@@ -1,0 +1,8 @@
+# Exclude all data files
+*
+
+# Include documentation and small samples
+!.gitignore
+!README.md
+!ifeval_sample.jsonl
+!agentif_sample.jsonl

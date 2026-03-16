@@ -1,0 +1,721 @@
+[
+  {
+    "id": 0,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'discovery', you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "conceptual",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 4
+      },
+      {
+        "rule": "Every time you refer to the concept of 'tradition', you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "conceptual",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you mention the word 'star', you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "lexical",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'conflict', you must write that entire sentence in italics (use Markdown).",
+        "trigger_type": "conceptual",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you mention the word 'silver', you must write that entire sentence in italics (use Markdown).",
+        "trigger_type": "lexical",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 2
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'luxury', you must immediately say 'Eureka!'.",
+        "trigger_type": "conceptual",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 1
+      },
+      {
+        "rule": "Every time you refer to the concept of 'innovation', you must immediately add the word 'DANGER'.",
+        "trigger_type": "conceptual",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 5
+      },
+      {
+        "rule": "Every time you refer to the concept of 'conflict', you must follow it with a sentence where you describe a sound.",
+        "trigger_type": "conceptual",
+        "action_type": "content",
+        "score": 0.6666666666666666,
+        "num_triggers": 3
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention a specific geographic location, you must follow it with a sentence where you describe a smell.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you refer to the concept of 'betrayal', you must follow it with a sentence where you mention a historical date.",
+        "trigger_type": "conceptual",
+        "action_type": "content",
+        "score": 0.5,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you mention the word 'silver', you must follow it with a sentence where you mention a historical date.",
+        "trigger_type": "lexical",
+        "action_type": "content",
+        "score": 0.5,
+        "num_triggers": 2
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'key', you must immediately say 'Aha!'.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you mention a specific person's name, you must follow it with a sentence where you make a prediction.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you mention the word 'clock', you must write that entire sentence in italics (use Markdown).",
+        "trigger_type": "lexical",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 2
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'key', you must follow it with a sentence where you describe a smell.",
+        "trigger_type": "lexical",
+        "action_type": "content",
+        "score": 1.0,
+        "num_triggers": 3
+      },
+      {
+        "rule": "Every time you mention the word 'water', you must write that entire sentence in UPPERCASE (use Markdown).",
+        "trigger_type": "lexical",
+        "action_type": "formatting",
+        "score": 0.5,
+        "num_triggers": 4
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you start a new paragraph, you must immediately say 'Aha!'.",
+        "trigger_type": "structural",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 7
+      },
+      {
+        "rule": "Every time you refer to the concept of 'tradition', you must write that entire sentence in UPPERCASE (use Markdown).",
+        "trigger_type": "conceptual",
+        "action_type": "formatting",
+        "score": 0.0,
+        "num_triggers": 2
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention any number, you must immediately mention a lemon.",
+        "trigger_type": "structural",
+        "action_type": "lexical",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you refer to the concept of 'betrayal', you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "conceptual",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 1
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'innovation', you must follow it with a sentence where you describe a sound.",
+        "trigger_type": "conceptual",
+        "action_type": "content",
+        "score": 1.0,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you mention the word 'forest', you must follow it with a sentence where you mention a scientific fact.",
+        "trigger_type": "lexical",
+        "action_type": "content",
+        "score": 0.8,
+        "num_triggers": 5
+      },
+      {
+        "rule": "Every time you refer to the concept of 'hope', you must follow it with a sentence where you describe a sound.",
+        "trigger_type": "conceptual",
+        "action_type": "content",
+        "score": 1.0,
+        "num_triggers": 3
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'mystery', you must immediately say 'Eureka!'.",
+        "trigger_type": "conceptual",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you mention the word 'mirror', you must follow it with a sentence where you mention a scientific fact.",
+        "trigger_type": "lexical",
+        "action_type": "content",
+        "score": 1.0,
+        "num_triggers": 2
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention any number, you must follow it with a sentence where you describe a smell.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you finish a sentence, you must immediately mention a lemon.",
+        "trigger_type": "structural",
+        "action_type": "lexical",
+        "score": null,
+        "num_triggers": 0
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'nature', you must follow it with a sentence where you make a prediction.",
+        "trigger_type": "conceptual",
+        "action_type": "content",
+        "score": 0.75,
+        "num_triggers": 4
+      },
+      {
+        "rule": "Every time you mention any number, you must follow it with a sentence where you describe a smell.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you mention any number, you must write that entire sentence in italics (use Markdown).",
+        "trigger_type": "structural",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      }
+    ]
+  },
+  {
+    "id": 12,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'mountain', you must write that entire sentence in UPPERCASE (use Markdown).",
+        "trigger_type": "lexical",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you mention any number, you must write that entire sentence in italics (use Markdown).",
+        "trigger_type": "structural",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention a specific person's name, you must follow it with a sentence where you describe a smell.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you mention the word 'key', you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "lexical",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 4
+      },
+      {
+        "rule": "Every time you finish a sentence, you must follow it with a sentence where you describe a smell.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": null,
+        "num_triggers": 0
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'water', you must immediately mention a lemon.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 1.0,
+        "num_triggers": 3
+      },
+      {
+        "rule": "Every time you finish a sentence, you must follow it with a sentence where you ask a question.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": null,
+        "num_triggers": 0
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'water', you must follow it with a sentence where you make a prediction.",
+        "trigger_type": "lexical",
+        "action_type": "content",
+        "score": 1.0,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you mention the word 'clock', you must follow it with a sentence where you describe a smell.",
+        "trigger_type": "lexical",
+        "action_type": "content",
+        "score": 1.0,
+        "num_triggers": 2
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'mirror', you must immediately say 'Eureka!'.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 1
+      },
+      {
+        "rule": "Every time you start a new paragraph, you must follow it with a sentence where you mention a historical date.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": 0.14285714285714285,
+        "num_triggers": 7
+      },
+      {
+        "rule": "Every time you refer to the concept of 'conflict', you must follow it with a sentence where you mention a scientific fact.",
+        "trigger_type": "conceptual",
+        "action_type": "content",
+        "score": 0.0,
+        "num_triggers": 1
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'hope', you must follow it with a sentence where you mention a historical date.",
+        "trigger_type": "conceptual",
+        "action_type": "content",
+        "score": 0.5,
+        "num_triggers": 6
+      },
+      {
+        "rule": "Every time you refer to the concept of 'friendship', you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "conceptual",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 3
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'nature', you must immediately say 'Eureka!'.",
+        "trigger_type": "conceptual",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you refer to the concept of 'betrayal', you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "conceptual",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you finish a sentence, you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "structural",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'mirror', you must immediately mention a green apple.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 1.0,
+        "num_triggers": 1
+      },
+      {
+        "rule": "Every time you mention the word 'bridge', you must follow it with a sentence where you mention a scientific fact.",
+        "trigger_type": "lexical",
+        "action_type": "content",
+        "score": 1.0,
+        "num_triggers": 1
+      },
+      {
+        "rule": "Every time you mention the word 'forest', you must immediately add the word 'DANGER'.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 1.0,
+        "num_triggers": 2
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'bridge', you must follow it with a sentence where you mention a scientific fact.",
+        "trigger_type": "lexical",
+        "action_type": "content",
+        "score": 0.75,
+        "num_triggers": 4
+      },
+      {
+        "rule": "Every time you mention a specific person's name, you must follow it with a sentence where you mention a historical date.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you refer to the concept of 'nature', you must follow it with a sentence where you ask a question.",
+        "trigger_type": "conceptual",
+        "action_type": "content",
+        "score": 0.0,
+        "num_triggers": 5
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention a specific geographic location, you must immediately mention a green apple.",
+        "trigger_type": "structural",
+        "action_type": "lexical",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you mention a specific person's name, you must write that entire sentence in UPPERCASE (use Markdown).",
+        "trigger_type": "structural",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you refer to the concept of 'hope', you must immediately add the word 'DANGER'.",
+        "trigger_type": "conceptual",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 2
+      }
+    ]
+  },
+  {
+    "id": 22,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'friendship', you must immediately add the word 'DANGER'.",
+        "trigger_type": "conceptual",
+        "action_type": "lexical",
+        "score": 1.0,
+        "num_triggers": 1
+      },
+      {
+        "rule": "Every time you mention the word 'water', you must immediately say 'Eureka!'.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 1
+      },
+      {
+        "rule": "Every time you mention the word 'key', you must immediately add the word 'MYSTERY'.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 1.0,
+        "num_triggers": 1
+      }
+    ]
+  },
+  {
+    "id": 23,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'technology', you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "conceptual",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you refer to the concept of 'discovery', you must write that entire sentence in UPPERCASE (use Markdown).",
+        "trigger_type": "conceptual",
+        "action_type": "formatting",
+        "score": 0.0,
+        "num_triggers": 3
+      },
+      {
+        "rule": "Every time you mention the word 'forest', you must write that entire sentence in italics (use Markdown).",
+        "trigger_type": "lexical",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 5
+      }
+    ]
+  },
+  {
+    "id": 24,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention any number, you must follow it with a sentence where you describe a sound.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you finish a sentence, you must follow it with a sentence where you describe a smell.",
+        "trigger_type": "structural",
+        "action_type": "content",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you refer to the concept of 'conflict', you must immediately say 'Aha!'.",
+        "trigger_type": "conceptual",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 6
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'star', you must immediately say 'Aha!'.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 2
+      },
+      {
+        "rule": "Every time you mention a specific person's name, you must write that entire sentence in italics (use Markdown).",
+        "trigger_type": "structural",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      }
+    ]
+  },
+  {
+    "id": 26,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention a specific geographic location, you must immediately add the word 'MYSTERY'.",
+        "trigger_type": "structural",
+        "action_type": "lexical",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you mention the word 'key', you must write that entire sentence in UPPERCASE (use Markdown).",
+        "trigger_type": "lexical",
+        "action_type": "formatting",
+        "score": 0.0,
+        "num_triggers": 1
+      },
+      {
+        "rule": "Every time you mention any number, you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "structural",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'key', you must immediately say 'Eureka!'.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 7
+      },
+      {
+        "rule": "Every time you mention any number, you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "structural",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you refer to the concept of 'nature', you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "conceptual",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you mention a specific person's name, you must write that entire sentence in UPPERCASE (use Markdown).",
+        "trigger_type": "structural",
+        "action_type": "formatting",
+        "score": null,
+        "num_triggers": 0
+      },
+      {
+        "rule": "Every time you mention the word 'stone', you must immediately say 'Eureka!'.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 0.0,
+        "num_triggers": 5
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "model": "gpt-4o",
+    "rule_evals": [
+      {
+        "rule": "Every time you mention the word 'mirror', you must immediately add the word 'MYSTERY'.",
+        "trigger_type": "lexical",
+        "action_type": "lexical",
+        "score": 1.0,
+        "num_triggers": 1
+      },
+      {
+        "rule": "Every time you start a new paragraph, you must write that entire sentence in BOLD (use Markdown).",
+        "trigger_type": "structural",
+        "action_type": "formatting",
+        "score": 1.0,
+        "num_triggers": 8
+      }
+    ]
+  }
+]

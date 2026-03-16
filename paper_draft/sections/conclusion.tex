@@ -1,0 +1,8 @@
+\section{Conclusion}
+\label{sec:conclusion}
+
+In this work, we have presented a systematic analysis of the \ifcapacity of Large Language Models (LLMs). Through a taxonomy based on trigger and action types, we have isolated specific failure modes in global persistent conditional instruction following. We introduced \benchmark, a new benchmark that reveals significant inconsistencies in model capacity.
+
+Our primary finding is that model capacity is fragmented: while models excel at lexical triggers and formatting actions, they struggle with structural triggers and conceptual conditions. This inconsistency is further compounded by a high rate of false positives, suggesting that conditional rules often act as a global bias rather than a precise logical condition. We also documented the ``Action Paradox,'' where models fail to follow lexical instructions that disrupt the fluency of the generated text.
+
+Our research highlights a critical gap in the reliability of current LLMs. For developers deploying LLMs in environments requiring precise adherence to conditional logic, we recommend preferring lexical triggers and formatting actions over structural or conceptual ones. Furthermore, we provide a framework and benchmark for evaluating and developing next-generation models that can consistently and reliably follow complex conditional instructions in a global context.

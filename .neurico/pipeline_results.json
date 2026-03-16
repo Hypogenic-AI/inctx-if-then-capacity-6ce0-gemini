@@ -1,0 +1,27 @@
+{
+  "success": true,
+  "stages": {
+    "resource_finder": {
+      "success": true,
+      "completion_marker": "/workspaces/inctx-if-then-capacity-6ce0-gemini/.resource_finder_complete",
+      "outputs": {
+        "literature_review": "/workspaces/inctx-if-then-capacity-6ce0-gemini/literature_review.md",
+        "resources_catalog": "/workspaces/inctx-if-then-capacity-6ce0-gemini/resources.md",
+        "papers_dir": "/workspaces/inctx-if-then-capacity-6ce0-gemini/papers",
+        "datasets_dir": "/workspaces/inctx-if-then-capacity-6ce0-gemini/datasets",
+        "code_dir": "/workspaces/inctx-if-then-capacity-6ce0-gemini/code"
+      },
+      "log_file": "/workspaces/inctx-if-then-capacity-6ce0-gemini/logs/resource_finder_gemini.log",
+      "transcript_file": "/workspaces/inctx-if-then-capacity-6ce0-gemini/logs/resource_finder_gemini_transcript.jsonl",
+      "elapsed_time": 554.2566328048706
+    },
+    "experiment_runner": {
+      "success": true,
+      "return_code": 0,
+      "elapsed_time": 1489.8997521400452,
+      "log_file": "/workspaces/inctx-if-then-capacity-6ce0-gemini/logs/execution_gemini.log",
+      "transcript_file": "/workspaces/inctx-if-then-capacity-6ce0-gemini/logs/execution_gemini_transcript.jsonl"
+    }
+  },
+  "work_dir": "/workspaces/inctx-if-then-capacity-6ce0-gemini"
+}

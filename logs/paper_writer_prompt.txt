@@ -1,0 +1,462 @@
+You are an academic paper writer. Generate a complete NEURIPS style paper
+based on the experiment results provided.
+
+════════════════════════════════════════════════════════════════════════════════
+                         IMPORTANT: BEFORE YOU START
+════════════════════════════════════════════════════════════════════════════════
+
+Before writing any content, you MUST complete these steps:
+
+1. READ THE SKILL: Review the paper-writer skill at .gemini/skills/paper-writer/SKILL.md
+2. READ THE STYLE GUIDE: Study templates/paper_writing/lab_style_guide.md carefully
+3. REVIEW EXAMPLES: Browse paper_examples/ for formatting and language patterns:
+   - Look at sections/1.introduction.tex for language style
+   - Look at tables/*.tex for table formatting
+   - Look at commands/*.tex for macro usage
+4. VERIFY COMMAND TEMPLATES: Command templates (math.tex, general.tex, macros.tex) are pre-copied to paper_draft/commands/
+
+CRITICAL: Reference example papers for FORMATTING and LANGUAGE STYLE only.
+Do NOT copy content, phrasing, or narrative structure from the example papers.
+The examples are in a different research domain - focus only on presentation style.
+
+════════════════════════════════════════════════════════════════════════════════
+                            EXPERIMENT REPORT
+════════════════════════════════════════════════════════════════════════════════
+
+# In-context If-Then Capacity: A Systematic Analysis
+
+## Executive Summary
+This research investigates the ability of Large Language Models (LLMs) to follow **Global Persistent Conditional Constraints** (e.g., &#34;Every time you mention X, do Y&#34;). We find that model capacity is highly inconsistent across different types of triggers and actions. While models excel at keyword-based (lexical) triggers, they struggle significantly with structural triggers (e.g., &#34;at the start of a paragraph&#34;) and conceptual triggers (e.g., &#34;referring to nature&#34;). Furthermore, we observe a high rate of **False Positives**, where models over-apply conditional actions even in the absence of the trigger.
+
+## Goal
+The primary goal was to measure the reliability and consistency of LLMs&#39; &#34;If-Then&#34; capacity across a taxonomy of triggers (Lexical, Conceptual, Structural) and actions (Lexical, Formatting, Content). We hypothesized that performance would be inconsistent and that models would exhibit a bias towards over-application.
+
+## Data Construction
+
+### Dataset Description
+We created **CondIF-Bench**, a synthetic benchmark consisting of 30 long-form creative writing prompts (300+ words). Each prompt contains 2-3 global conditional rules randomly sampled from our taxonomy:
+- **Triggers**: Lexical (e.g., &#34;mountain&#34;), Conceptual (e.g., &#34;nature&#34;), Structural (e.g., &#34;start of a paragraph&#34;).
+- **Actions**: Lexical (e.g., &#34;say &#39;Aha!&#39;&#34;), Formatting (e.g., &#34;BOLD&#34;), Content (e.g., &#34;describe a smell&#34;).
+
+### Example Sample
+**Base Prompt**: &#34;Write a historical drama about a secret meeting between two rival queens.&#34;
+**Rules**:
+1. Every time you mention the word &#39;silver&#39;, you must immediately add the word &#39;DANGER&#39;. (Lexical Trigger -&gt; Lexical Action)
+2. Every time you refer to the concept of &#39;betrayal&#39;, you must write that entire sentence in italics. (Conceptual Trigger -&gt; Formatting Action)
+3. Every time you start a new paragraph, you must follow it with a sentence where you ask a question. (Structural Trigger -&gt; Content Action)
+
+## Experiment Description
+
+### Methodology
+We evaluated two models from the OpenAI family: **GPT-4o** (Large) and **GPT-4o-mini** (Small/Efficient).
+- **Inference**: Temperature 0.0 to ensure reproducibility.
+- **Evaluation**: 
+  - Programmatic verification for Lexical/Formatting actions.
+  - LLM-as-a-judge (GPT-4o-mini) for Conceptual triggers and Content actions.
+
+### Evaluation Metrics
+- **Conditional Adherence Score**: $P(\text{Action} | \text{Trigger})$ - The probability that the action is performed given the trigger occurred.
+- **False Positive Count**: Instances where the action occurred without the trigger.
+
+## Raw Results
+
+### Summary by Trigger Type
+| Model | Lexical | Conceptual | Structural |
+|-------|---------|------------|------------|
+| GPT-4o | 0.66 | 0.52 | 0.38 |
+| GPT-4o-mini | 0.65 | 0.37 | 0.33 |
+
+### Summary by Action Type
+| Model | Lexical | Formatting | Content |
+|-------|---------|------------|---------|
+| GPT-4o | 0.32 | 0.78 | 0.68 |
+| GPT-4o-mini | 0.22 | 0.79 | 0.52 |
+
+## Result Analysis
+
+### Key Findings
+1. **Lexical Superiority**: Both models find lexical (keyword) triggers significantly easier to monitor than conceptual or structural ones.
+2. **Structural Fragility**: Models exhibit a &#34;blind spot&#34; for structural triggers like paragraph boundaries or sentence completions, often failing to trigger the required action.
+3. **The &#34;Action Paradox&#34;**: While models are excellent at conditional formatting (italics/bold), they are surprisingly poor at conditional lexical insertion (&#34;say word X&#34;). This suggests that &#34;X&#34; feels like a hallucination or an interruption that the model&#39;s fluency filters out.
+4. **Scale Matters**: GPT-4o significantly outperforms GPT-4o-mini on conceptual triggers (+40%) and content actions (+30%), but both models remain unreliable on structural triggers.
+
+### False Positive Analysis
+We observed an average of **~0.8 Lexical False Positives per rule** for GPT-4o. This indicates that models often &#34;leak&#34; conditional actions into parts of the text where the trigger was never present, suggesting that the rule becomes a &#34;global bias&#34; rather than a precise logical condition.
+
+## Conclusions
+LLMs&#39; ability to follow conditional instructions is **not consistent**. Capacity is heavily weighted towards lexical patterns and falls off sharply for abstract or structural conditions. For reliable deployment, developers should prefer lexical triggers and formatting actions, while remaining cautious about &#34;over-triggering&#34; behaviors.
+
+## Next Steps
+- **Interference Analysis**: Test how performance degrades as the number of conditional rules increases (e.g., from 3 to 10).
+- **Reasoning Models**: Evaluate if &#34;System 2&#34; models (e.g., o1) show better structural adherence.
+- **Mitigation**: Develop prompting strategies (e.g., &#34;Check-your-work&#34; loops) specifically for conditional logic.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                            RESEARCH PLAN
+════════════════════════════════════════════════════════════════════════════════
+
+# Research Plan: In-context If-Then Capacity
+
+## Motivation &amp; Novelty Assessment
+
+### Why This Research Matters
+As LLMs are increasingly deployed as autonomous agents or in high-stakes environments (e.g., medical advice, legal drafting), their ability to follow conditional safety and formatting rules is paramount. A simple instruction like &#34;If the user mentions symptoms, provide a disclaimer&#34; must be followed consistently. Failures in conditional logic (False Negatives) or over-application (False Positives) undermine the reliability of these systems.
+
+### Gap in Existing Work
+Existing benchmarks like **IFEval** focus primarily on static, unconditional constraints. While **AgentIF** and **LSRIF** introduce logical structures, they often focus on &#34;one-off&#34; task execution. The user&#39;s specific observation about &#34;every time you mention a dog you also mention a cat&#34; highlights a **Global Persistent Conditional Constraint**. There is a lack of systematic research into whether models are *consistently* good at these across different semantic triggers (lexical vs. conceptual) and actions (formatting vs. content).
+
+### Our Novel Contribution
+- **Systematic Taxonomy**: We categorize conditional instructions by Trigger Type (Lexical, Conceptual, Structural) and Action Type (Lexical, Formatting, Content).
+- **Global Consistency Analysis**: We measure the correlation between a model&#39;s performance on different categories to determine if &#34;conditional capacity&#34; is a unified capability or fragmented.
+- **Error Attribution**: We distinguish between &#34;Trigger Miss&#34; (failure to detect the condition) and &#34;Action Failure&#34; (detecting the condition but failing the response).
+
+### Experiment Justification
+- **Experiment 1: Baseline Conditional Capacity**: Evaluate SOTA models on our new &#34;Conditional-IF&#34; benchmark to establish current capability floors and ceilings.
+- **Experiment 2: Semantic vs. Lexical Consistency**: Compare if models that excel at keyword-based triggers also handle abstract conceptual triggers (e.g., &#34;if you mention sadness...&#34;).
+- **Experiment 3: Complexity Scaling**: Test how increasing the number of active conditional rules affects performance (Interference).
+
+---
+
+## Research Question
+Is the ability of large language models to follow conditional (if-then) instructions consistent over different types of instructions, and can we reliably measure this capacity?
+
+## Hypothesis Decomposition
+- **H1 (Inconsistency)**: Models perform significantly better on Lexical Triggers (keywords) than Conceptual Triggers (themes/sentiment).
+- **H2 (Correlation)**: There is a positive correlation between performance on Lexical-Action and Content-Action conditional tasks within a model.
+- **H3 (False Positive Bias)**: Models exhibit higher False Positive rates for &#34;vague&#34; conceptual triggers.
+
+## Proposed Methodology
+
+### Approach
+We will build a specialized evaluation harness called **CondIF-Bench**. We will use LLMs to generate 100 prompts that require long-form creative writing (to allow for multiple trigger opportunities) with 3-5 global conditional rules each.
+
+### Experimental Steps
+1. **Dataset Generation**: Use GPT-4o to generate prompts and rules based on our $3 \times 3$ taxonomy (Trigger $\times$ Action).
+2. **Model Execution**: Run selected models (GPT-4o, Claude 3.5 Sonnet, etc.) on these prompts.
+3. **Automated Evaluation**:
+   - Use Regex/Python for Lexical/Formatting verification.
+   - Use GPT-4o as a critic for Conceptual/Content verification.
+4. **Statistical Analysis**: Calculate Trigger Detection Rate, Conditional Accuracy, and False Positive Rate. Perform correlation analysis (Pearson/Spearman) across categories.
+
+### Baselines
+- **Unconditional IF Accuracy**: Performance on the same actions when instructed unconditionally (from IFEval/AgentIF).
+- **Random/Majority Baseline**: To measure chance performance.
+
+### Evaluation Metrics
+- **Recall (Conditional)**: $P(\text{Action} | \text{Trigger})$
+- **Precision (Conditional)**: $P(\text{Trigger} | \text{Action})$
+- **Trigger Detection Accuracy**: Does the model correctly identify instances where the condition is met?
+- **Consistency Score**: Variance in performance across the 9 categories.
+
+## Success Criteria
+- Identifying specific &#34;weak&#34; categories of conditional instructions.
+- Establishing a &#34;Conditional Capacity&#34; score for major models.
+- Demonstrating whether &#34;System 2&#34; (reasoning) models significantly outperform &#34;System 1&#34; models in this specific domain.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                          LITERATURE REVIEW
+════════════════════════════════════════════════════════════════════════════════
+
+# Literature Review: In-context If-Then Capacity
+
+## Research Area Overview
+Large Language Models (LLMs) are increasingly used for complex tasks requiring instruction following. While basic instruction following is well-studied, the ability to handle **logical structures** within instructions—specifically sequential dependencies and conditional branching (if-then logic)—remains a frontier. Recent research indicates that LLMs&#39; capacity for such structured reasoning is inconsistent and can be significantly influenced by prompt composition, reward modeling, and underlying reasoning capabilities (System 1 vs. System 2).
+
+## Key Papers
+
+### Paper 1: LSRIF: Logic-Structured Reinforcement Learning for Instruction Following
+- **Authors**: Qingyu Ren, et al.
+- **Year**: 2026
+- **Source**: arXiv (2601.06431)
+- **Key Contribution**: Proposes the LSRIF framework which explicitly models instruction logic (Parallel, Sequential, and Conditional).
+- **Methodology**: 
+    - **LSRInstruct**: A dataset capturing logical structures.
+    - **LSRM (Logic-Structured Reward Modeling)**: A reward scheme that aligns with logical execution semantics. For conditional structures, rewards are assigned only to the branch corresponding to the satisfied condition.
+- **Results**: LSRIF improves both in-domain and out-of-domain instruction following and general reasoning. Analysis shows &#34;sharpened&#34; attention on logical operators.
+- **Relevance to Our Research**: Provides a formal definition of &#34;Conditional Structure&#34; in instructions (Trigger $\rightarrow$ True Branch / False Branch) and a template for measuring it.
+
+### Paper 2: AGENTIF: Benchmarking Instruction Following of LLMs in Agentic Scenarios
+- **Authors**: Yunjia Qi, et al.
+- **Year**: 2025
+- **Source**: arXiv (2505.16944)
+- **Key Contribution**: Benchmarks instruction following in complex, multi-turn agentic scenarios.
+- **Methodology**: Categorizes constraints into dimensions, including a &#34;conditional&#34; dimension where constraints only apply if certain conditions are met.
+- **Results**: Highlights that existing models struggle with condition-dependent constraints in dynamic environments.
+- **Relevance to Our Research**: Provides empirical evidence and a dataset (AgentIF) with explicitly labeled &#34;conditional&#34; constraints.
+
+### Paper 3: Instruction-Following Evaluation by Large Language Models (IFEval)
+- **Authors**: Jeffrey Zhou, et al.
+- **Year**: 2023
+- **Source**: arXiv (2311.07911)
+- **Key Contribution**: Introduced IFEval, a benchmark of &#34;verifiable instructions&#34; (e.g., length constraints, format constraints).
+- **Methodology**: Uses 25 types of objective, programmatically verifiable instructions.
+- **Relevance to Our Research**: The standard baseline for any instruction-following study. While it lacks a dedicated &#34;if-then&#34; category, its &#34;Combination&#34; tasks provide a foundation for complex instruction testing.
+
+### Paper 4: Language models show human-like content effects on reasoning tasks
+- **Authors**: Ishita Dasgupta, et al.
+- **Year**: 2022
+- **Source**: arXiv (2207.07051)
+- **Key Contribution**: Shows that LLM performance on logical tasks (like syllogisms) is heavily biased by the semantic content of the task (belief bias).
+- **Relevance to Our Research**: Suggests that &#34;if-then capacity&#34; may not be a pure logical capability but is interactively influenced by the content of the &#34;if&#34; condition and the &#34;then&#34; action.
+
+## Common Methodologies
+- **Dataset Construction**: Using LLMs (like GPT-4) to generate complex, structured instructions from atomic constraints.
+- **Verifiable Rewards**: Programmatic verification of constraints (e.g., regex for formats, word counts for length) to ensure objective evaluation.
+- **Reward Modeling**: Using RL (like PPO or GRPO) with structured rewards that propagate failures in logical dependencies.
+
+## Standard Baselines
+- **IFEval**: The primary benchmark for instruction adherence.
+- **ComplexBench**: For compositional constraints.
+- **Reasoning Models**: GPT-4o, Claude 3.5 Sonnet, and &#34;System 2&#34; models like DeepSeek-R1/o1 as upper bounds for logical consistency.
+
+## Gaps and Opportunities
+- **Consistency over Semantic Variations**: Most benchmarks test if-then logic with a specific semantic content. There is a gap in analyzing if the *logic itself* holds when the *content* changes (e.g., abstract vs. concrete conditions).
+- **Reliability of Trigger Detection**: Investigating whether failure occurs in detecting the &#34;if&#34; condition or in executing the &#34;then&#34; branch.
+
+## Recommendations for Our Experiment
+1. **Dataset**: Use a combination of IFEval (for baseline) and a custom &#34;If-Then&#34; dataset modeled after LSRIF&#39;s `Selection` structure.
+2. **Metrics**: Measure **Conditional Accuracy** (following the correct branch) vs. **Global Accuracy** (satisfying all constraints regardless of logic).
+3. **Control Variables**: Vary the complexity of the &#34;if&#34; trigger (e.g., simple keyword vs. semantic property) and the &#34;then&#34; action.
+
+
+════════════════════════════════════════════════════════════════════════════════
+                          PAPER REQUIREMENTS
+════════════════════════════════════════════════════════════════════════════════
+
+Generate a complete academic paper with the following structure:
+
+1. TITLE
+   - Clear, specific, informative
+   - Should convey main finding or contribution
+
+2. AUTHOR
+   - Use this exact author line in the \author{} block: Ari Holtzman and NeuriCo
+
+3. ABSTRACT (150-250 words)
+   - Problem statement
+   - Approach
+   - Key results
+   - Significance
+
+4. INTRODUCTION
+   - Research problem and motivation
+   - Gap in existing work
+   - Our contribution (be specific)
+   - Paper organization
+
+5. RELATED WORK
+   - Organized by theme/approach
+   - Position our work relative to prior work
+   - Cite papers from literature review
+
+6. METHODOLOGY
+   - Clear description of approach
+   - Experimental setup
+   - Datasets used
+   - Evaluation metrics
+   - Baselines
+
+7. RESULTS
+   - Present results with tables and figures
+   - Statistical analysis
+   - Comparison to baselines
+   - Ablation studies (if applicable)
+
+8. DISCUSSION
+   - Interpretation of results
+   - Limitations
+   - Broader implications
+
+9. CONCLUSION
+   - Summary of contributions
+   - Key findings
+   - Future work
+
+10. REFERENCES
+   - BibTeX format
+   - All cited papers
+
+════════════════════════════════════════════════════════════════════════════════
+                          OUTPUT FORMAT
+════════════════════════════════════════════════════════════════════════════════
+
+Create a MODULAR LaTeX project with the following directory structure:
+
+paper_draft/
+├── main.tex              # Main file that imports all sections
+├── references.bib        # BibTeX references
+├── sections/
+│   ├── abstract.tex      # Abstract content
+│   ├── introduction.tex  # Introduction section
+│   ├── related_work.tex  # Related work section
+│   ├── methodology.tex   # Methodology section
+│   ├── results.tex       # Results section
+│   ├── discussion.tex    # Discussion section
+│   └── conclusion.tex    # Conclusion section
+├── figures/              # Directory for any generated figures
+├── tables/               # Directory for complex standalone tables
+└── appendix/             # Directory for appendix sections (if needed)
+
+INSTRUCTIONS:
+1. First, create the directory structure above (mkdir -p paper_draft/sections paper_draft/figures paper_draft/tables paper_draft/appendix)
+2. Write main.tex using the EXACT preamble for NEURIPS:
+
+   \documentclass{article}
+   \usepackage[final]{neurips_2025}  % NEURIPS style (neurips_2025.sty is in paper_draft/)
+   \usepackage[hidelinks]{hyperref}  % REQUIRED: clickable links
+   \usepackage{booktabs}  % REQUIRED: professional tables
+   \usepackage{graphicx}
+   \usepackage{amsmath,amssymb}
+
+   % Import command files
+   \input{commands/math}
+   \input{commands/general}
+   \input{commands/macros}
+
+   % Use this bibliography style:
+   \bibliographystyle{plainnat}
+
+   \author{Ari Holtzman and NeuriCo}
+
+   - Use \input{sections/...} to include each section
+   - Use \bibliography{references} for references
+3. Write each section file with COMPLETE content (no placeholders)
+4. Each section file should include its \section{} command
+5. Write references.bib with all citations in BibTeX format
+6. After writing all files, compile the paper:
+   cd paper_draft && pdflatex -interaction=nonstopmode main.tex && bibtex main && pdflatex -interaction=nonstopmode main.tex && pdflatex -interaction=nonstopmode main.tex
+
+This modular structure allows humans to easily:
+- Edit individual sections without navigating a large file
+- Track changes per section
+- Reuse sections across different paper versions
+
+════════════════════════════════════════════════════════════════════════════════
+                          QUALITY REQUIREMENTS
+════════════════════════════════════════════════════════════════════════════════
+
+- Academic tone throughout
+- All claims must be supported by data from the experiment report
+- Proper citations using \cite{} commands
+- Clear figures and tables with proper captions
+- NO placeholder text - every section must have real content
+- The paper MUST compile without errors
+- If compilation fails, debug and fix the LaTeX errors
+
+════════════════════════════════════════════════════════════════════════════════
+                          LAB WRITING STYLE
+════════════════════════════════════════════════════════════════════════════════
+
+Follow these lab-specific conventions to match our paper style:
+
+1. LANGUAGE STYLE:
+   - Use active voice: "We propose", "We examine", "We focus on"
+   - Be direct and confident: "Our main question is...", "We hypothesize that..."
+   - State things clearly and simply - prefer plain language over jargon
+   - Use bold questions as paragraph organizers: {\bf what is X?}
+   - Include specific quantitative claims: "8.97% over baseline"
+   - Avoid fancy wording: "utilize" → "use", "facilitate" → "help"
+
+2. INTRODUCTION STRUCTURE:
+   - Engaging hook (get to the point quickly)
+   - Problem importance
+   - Gap identification
+   - Your approach with method figure reference
+   - Quantitative preview of results
+   - Contribution bullets (3-4 items, action verbs)
+
+3. CONTRIBUTION LISTS:
+   \begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+       \item We propose...
+       \item We conduct...
+       \item We complement...
+   \end{itemize}
+
+4. MODULAR COMMANDS STRUCTURE:
+   Command templates are pre-copied to paper_draft/commands/:
+   - math.tex: Math notation macros
+   - general.tex: Formatting macros
+   - macros.tex: Project-specific term definitions (customize this for your paper)
+
+   In main.tex, include:
+   \input{commands/math}
+   \input{commands/general}
+   \input{commands/macros}
+
+5. REFERENCE CONVENTIONS:
+   Use reference macros from math.tex:
+   - \figref{fig:name} for "figure 1" (lowercase, in-sentence)
+   - \Figref{fig:name} for "Figure 1" (capitalized, start of sentence)
+   - \secref{sec:name} for "section 2"
+
+6. TEXT FORMATTING:
+   - Use \para{Header text} for bold paragraph headers
+   - Define method/dataset names with \textsc and \xspace:
+     \newcommand{\methodname}{\textsc{MethodName}\xspace}
+
+7. TABLE FORMATTING:
+   - Use booktabs package (no vertical lines)
+   - Use \resizebox{\textwidth}{!}{...} for wide tables
+   - Use @{} to remove padding at table edges
+   - Use \cmidrule(lr){x-y} for sub-headers
+   - Use \textsc{} for dataset/method names in headers
+   - Bold best results with {\bf ...}
+
+8. FIGURE FORMATTING:
+   - Use 0.32\textwidth for 3-column subfigures
+   - Use 0.95\linewidth for full-width figures
+   - Use \input{figures/legend} for shared legends
+   - Write self-contained captions explaining key observations
+
+9. RESULTS PRESENTATION:
+   - Define \increase and \decrease for colored arrows (green up, red down)
+   - Bold best results in tables
+   - Report confidence intervals when available
+
+10. ALGORITHM STYLING:
+    - Use algpseudocode with [noend]
+    - Use \triangleright for comments
+
+11. HYPERLINKS (REQUIRED):
+    - Always use \usepackage[hidelinks]{hyperref} or with colored links
+    - All citations, section refs, figure refs, table refs must be clickable
+    - This is essential for reader navigation
+
+════════════════════════════════════════════════════════════════════════════════
+                          WORKFLOW: REVIEW AND REFLECT
+════════════════════════════════════════════════════════════════════════════════
+
+Before calling finish, you MUST complete these review steps:
+
+1. REVIEW RESOURCES (at the start):
+   - Read .gemini/skills/paper-writer/SKILL.md for detailed guidance
+   - Study templates/paper_writing/lab_style_guide.md for style conventions
+   - Browse paper_examples/ for formatting and language patterns
+
+2. SELF-REFLECTION (before finishing):
+   After writing all sections, review your work against these criteria:
+
+   LANGUAGE CHECK:
+   - [ ] Is the writing clear and jargon-free?
+   - [ ] Are claims specific with quantitative support?
+   - [ ] Is active voice used throughout?
+
+   FORMATTING CHECK:
+   - [ ] Does main.tex include \input{commands/math}, \input{commands/general}, \input{commands/macros}?
+   - [ ] Is hyperref package included for clickable references?
+   - [ ] Do tables use booktabs (no vertical lines)?
+   - [ ] Are best results bolded in tables?
+   - [ ] Are figures/tables properly captioned?
+
+   STRUCTURE CHECK:
+   - [ ] Does introduction follow: hook → importance → gap → approach → preview → contributions?
+   - [ ] Are contribution bullets specific with action verbs?
+   - [ ] Does the paper compile without errors?
+
+3. FIX ISSUES:
+   - Address any issues found in the self-reflection
+   - Re-compile and verify the PDF looks correct
+
+Only after completing this review should you consider the paper finished.

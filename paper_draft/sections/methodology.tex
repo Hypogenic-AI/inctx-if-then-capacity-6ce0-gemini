@@ -1,0 +1,43 @@
+\section{Methodology}
+\label{sec:method}
+
+We aim to systematically measure the consistency of \ifcapacity across a diverse set of triggers and actions. We first describe our taxonomy of conditional instructions and then introduce \benchmark, our benchmark for global persistent conditional constraints.
+
+\para{Taxonomy of Conditional Instructions.}
+We categorize conditional instructions using a $3 \times 3$ taxonomy defined by Trigger and Action types (\Tabref{tab:taxonomy}). This categorization allows us to isolate whether a failure occurs in the \textit{detection} of the trigger or the \textit{execution} of the required action.
+
+\begin{table}[t]
+\centering
+\caption{Taxonomy of Triggers and Actions for Conditional Instructions.}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\textbf{Category} & \textbf{Type} & \textbf{Example} \\ \midrule
+\textbf{Triggers} & \lexical & Mention the word `silver'. \\
+                  & \conceptual & Refer to the concept of `betrayal'. \\
+                  & \structural & Start a new paragraph. \\ \midrule
+\textbf{Actions}  & \lexical & Say the word `Aha!'. \\
+                  & \formatting & Write the sentence in bold. \\
+                  & \content & Describe a smell. \\ \bottomrule
+\end{tabular}
+\label{tab:taxonomy}
+\end{table}
+
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+    \item {\bf Triggers}: \lexical triggers are specific words or phrases; \conceptual triggers are abstract themes or sentiments; \structural triggers refer to structural components of the output (\eg paragraph boundaries).
+    \item {\bf Actions}: \lexical actions involve inserting specific words; \formatting actions involve stylistic changes like bolding or italics; \content actions require generating specific semantic content (\eg a question or a description).
+\end{itemize}
+
+\para{\benchmark: Dataset Construction.}
+We created \benchmark, a synthetic benchmark of 30 long-form creative writing prompts (300+ words each). Each prompt includes 2--3 global conditional rules randomly sampled from our taxonomy. For example, a historical drama prompt might contain a rule such as: ``Every time you refer to the concept of `betrayal', you must write that entire sentence in italics.'' This setup requires the model to monitor the context and apply the rule throughout the entire generation.
+
+\para{Experimental Setup.}
+We evaluate two models from the OpenAI family: \gptlarge (Large) and \gptmini (Small/Efficient). All inference is conducted at temperature 0.0 to ensure reproducibility. To ensure robustness, we use programmatic verification for \lexical and \formatting actions and an LLM-as-a-judge approach (\gptmini) for \conceptual triggers and \content actions.
+
+\para{Evaluation Metrics.}
+We evaluate \ifcapacity using two primary metrics:
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+    \item {\bf Conditional Adherence Score ($P(\text{Action} | \text{Trigger})$)}: The probability that the action is correctly performed given that the trigger occurred in the model's response.
+    \item {\bf False Positive Count}: The absolute count of instances where the model performed the action in the absence of the trigger.
+\end{itemize}
+
+By measuring both scores, we can distinguish between models that are merely over-applying a rule (high adherence but high false positives) and those that are truly following the conditional logic (high adherence and low false positives).

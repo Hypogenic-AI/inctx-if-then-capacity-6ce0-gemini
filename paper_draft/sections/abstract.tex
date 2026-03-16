@@ -1,0 +1,8 @@
+Despite significant progress in instruction following, Large Language Models (LLMs) often struggle with global persistent conditional constraints, such as ``Every time you mention X, do Y.''
+We investigate this \ifcapacity through a systematic analysis across a taxonomy of triggers (lexical, conceptual, structural) and actions (lexical, formatting, content).
+We introduce \benchmark, a synthetic benchmark of 30 long-form creative writing prompts, each containing multiple conditional rules.
+Our evaluation of \gptlarge and \gptmini reveals that model performance is highly inconsistent.
+While models excel at lexical triggers (66.0\% for \gptlarge), they struggle significantly with structural triggers like paragraph boundaries (38.0\%).
+Furthermore, we observe a high rate of false positives (~0.8 per rule), where models over-apply conditional actions even in the absence of a trigger.
+Our findings suggest that conditional adherence is not a unified capability but is fragmented by trigger and action types, with lexical patterns being far more reliable than abstract or structural conditions.
+This research highlights a critical gap in LLM reliability and provides a framework for measuring and mitigating conditional instruction failures.

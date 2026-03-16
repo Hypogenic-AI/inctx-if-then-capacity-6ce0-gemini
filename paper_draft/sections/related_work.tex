@@ -1,0 +1,18 @@
+\section{Related Work}
+\label{sec:related_work}
+
+The capacity of Large Language Models (LLMs) for complex instruction following has been a central theme in recent NLP research. Our work sits at the intersection of instruction-following benchmarks, logical reasoning in LLMs, and the semantic consistency of model responses.
+
+\para{Instruction-Following Benchmarks.}
+The development of \textsc{IFEval} \cite{zhou2023ifeval} marked a significant shift towards verifiable instructions like length and format constraints. While \textsc{IFEval} provides a foundation, it lacks a dedicated focus on global persistent conditional constraints. Similarly, \textsc{AGENTIF} \cite{qi2025agentif} explores instruction following in agentic scenarios but often focuses on task execution rather than maintaining conditional logic throughout a long-form generation. Our work extends these efforts by specifically isolating and measuring the persistence and consistency of conditional rules.
+
+\para{Logic-Structured Instructions.}
+Recent frameworks like \textsc{LSRIF} \cite{ren2026lsrif} explicitly model instructions using logic structures such as parallel, sequential, and conditional branching. \textsc{LSRIF} introduces a logic-structured reward modeling (LSRM) to align models with logical semantics. While \textsc{LSRIF} provides a formal definition for conditional structures, it primarily focuses on reinforcement learning and fine-tuning. In contrast, our study examines the \textit{in-context} capacity of pre-trained models, identifying how current models perform on such tasks without additional training or structural rewards.
+
+\para{Semantic Bias and Logical Reasoning.}
+The inconsistency in LLM reasoning has been attributed to content and semantic biases. Dasgupta et al. \cite{dasgupta2022content} show that model performance on logical tasks like syllogisms is heavily influenced by the belief bias of the semantic content. This suggests that ``if-then capacity'' may not be a pure logical capability but is interactively influenced by the content of the condition and the action. Our taxonomy addresses this by comparing lexical triggers, which are purely syntactic, with conceptual triggers, which are semantic and prone to such biases.
+
+\para{Reasoning in LLMs.}
+A broader body of research investigates the general reasoning capabilities of LLMs \cite{reasoning2025survey}. Recent advances in ``System 2'' reasoning models aim to improve the logical consistency of model outputs. Our work provides a baseline for evaluating these next-generation models by documenting the current limitations of ``System 1'' models like \gptlarge on structural and conceptual conditional tasks.
+
+In summary, while existing work has explored logical structures and basic instruction following, our research provides the first systematic study of \textit{global, persistent conditional constraints} and their interaction with different trigger and action types.

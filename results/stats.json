@@ -1,0 +1,32 @@
+{
+  "summary_trigger": {
+    "conceptual": {
+      "gpt-4o": 0.517361111111111,
+      "gpt-4o-mini": 0.3736024844720497
+    },
+    "lexical": {
+      "gpt-4o": 0.662,
+      "gpt-4o-mini": 0.65
+    },
+    "structural": {
+      "gpt-4o": 0.38095238095238093,
+      "gpt-4o-mini": 0.3333333333333333
+    }
+  },
+  "summary_action": {
+    "content": {
+      "gpt-4o": 0.6829131652661065,
+      "gpt-4o-mini": 0.5214285714285715
+    },
+    "formatting": {
+      "gpt-4o": 0.78125,
+      "gpt-4o-mini": 0.7941176470588235
+    },
+    "lexical": {
+      "gpt-4o": 0.3157894736842105,
+      "gpt-4o-mini": 0.2222222222222222
+    }
+  },
+  "overall_gpt4o": 0.579029304029304,
+  "overall_mini": 0.5067226890756302
+}

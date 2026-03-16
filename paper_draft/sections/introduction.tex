@@ -1,0 +1,20 @@
+\section{Introduction}
+\label{sec:intro}
+
+Consider the instruction: ``Every time you mention a dog, you must also mention a cat.'' This simple, global persistent conditional constraint is a fundamental component of reliable instruction following in Large Language Models (LLMs). As these models are increasingly deployed in autonomous agents and high-stakes environments---ranging from medical diagnosis to legal drafting---their ability to follow such conditional logic is paramount. A safety-critical instruction like ``If the user mentions symptoms, provide a disclaimer'' must be followed consistently and without fail.
+
+{\bf Why is conditional capacity important?} The reliability of LLMs is often judged by their adherence to complex, multi-layered instructions. While basic instruction following has seen massive improvements \cite{zhou2023ifeval}, the ability to handle \textit{conditional} branching within a global context remains a significant challenge. Failures in this domain manifest as both false negatives (failing to trigger a required action) and false positives (over-applying an action), both of which undermine the trust and predictability required for real-world deployment.
+
+However, existing benchmarks for instruction following primarily focus on static, unconditional constraints or one-off task execution \cite{zhou2023ifeval, qi2025agentif}. There is a lack of systematic research into whether LLMs can consistently follow global conditional rules across different semantic triggers (lexical vs. conceptual) and actions (formatting vs. content). {\bf What is the nature of this capacity?} Is it a unified capability that scales with model size, or is it fragmented by the complexity of the triggers and actions involved?
+
+In this paper, we conduct a systematic analysis of \ifcapacity. We propose a taxonomy that categorizes conditional instructions by trigger type (\lexical, \conceptual, \structural) and action type (\lexical, \formatting, \content). We introduce \benchmark, a specialized evaluation harness consisting of 30 long-form creative writing prompts with 2--3 global conditional rules each. This setup allows us to measure not just whether a model can follow a rule once, but whether it can maintain consistency over a long-form generation.
+
+Our results reveal a stark inconsistency in model capacity. We find that both \gptlarge and \gptmini excel at lexical triggers but show a significant drop in performance for conceptual and structural conditions. For example, \gptlarge achieves a 66.0\% adherence score on lexical triggers but falls to 38.0\% on structural triggers. Furthermore, we observe an ``Action Paradox'': models are excellent at conditional formatting (78.0\%) but surprisingly poor at conditional lexical insertion (32.0\%), suggesting that models' fluency filters out required but disjointed lexical insertions. We also document a significant false positive bias, with an average of ~0.8 lexical false positives per rule.
+
+We make the following contributions:
+\begin{itemize}[leftmargin=*,itemsep=0pt,topsep=0pt]
+    \item We propose a systematic taxonomy of conditional instructions based on Trigger and Action types, enabling a more granular analysis of model capabilities.
+    \item We introduce \benchmark, a new benchmark for evaluating global persistent conditional constraints in long-form generation.
+    \item We conduct a comprehensive evaluation of \gptlarge and \gptmini, identifying specific failure modes such as ``structural fragility'' and lexical ``action paradoxes.''
+    \item We provide an in-depth analysis of false positives, demonstrating that conditional rules often become global biases rather than precise logical conditions.
+\end{itemize}

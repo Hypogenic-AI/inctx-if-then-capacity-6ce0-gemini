@@ -1,0 +1,16 @@
+\section{Discussion}
+\label{sec:discussion}
+
+Our results highlight several critical aspects of \ifcapacity in LLMs. We find that performance is highly fragmented across different trigger and action types, with significant implications for model reliability.
+
+\para{The ``Action Paradox'' and Model Fluency.}
+One of our most surprising findings is the ``Action Paradox'': models are significantly worse at \lexical actions (\eg ``say `Aha!' '') than at \formatting actions (\eg bolding a sentence). While \formatting actions are stylistic and do not interrupt the flow of the text, \lexical actions often feel like ``hallucinations'' or interruptions. We hypothesize that the model's internal fluency filters, which are trained to maintain coherence, may be inadvertently suppressing the required but disjointed lexical insertions. This suggests that the model's desire for fluency can act as a barrier to following specific, non-fluent instructions.
+
+\para{Structural Fragility and Context Monitoring.}
+The low performance on \structural triggers (\eg paragraph boundaries) indicates a fundamental difficulty in monitoring the generation's structural context. While LLMs are excellent at word-level and sentence-level logic, they seem to lack a robust representation of higher-level structures during the generation process. This suggests that ``structural awareness'' is not naturally emergent in current transformer-based architectures and may require explicit architectural modifications or specialized training.
+
+\para{False Positive Bias and Global Activation.}
+The high rate of false positives (~0.8 per rule) suggests that conditional instructions often become a ``global bias'' rather than a precise logical condition. Once a rule is activated, it remains active throughout the generation, leading to over-application. This is consistent with the idea that LLMs maintain a high degree of activation for relevant concepts in their hidden states. This bias presents a significant challenge for applications that require precise adherence to conditional rules, such as safety-critical or formatting-heavy tasks.
+
+\para{Limitations and Future Work.}
+Our study is limited to two models from a single family (\gptlarge and \gptmini) and a synthetic benchmark (\benchmark). Future research should evaluate a broader range of models, including specialized reasoning models like \textsc{DeepSeek-R1} or \textsc{OpenAI o1}. Additionally, investigating how \ifcapacity degrades as the number of rules increases (interference analysis) would provide deeper insights into model capacity limits. Finally, developing prompting strategies like ``check-your-work'' loops or explicit planning could help mitigate the observed failures in conditional instruction following.
